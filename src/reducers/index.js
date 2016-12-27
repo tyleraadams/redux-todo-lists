@@ -87,26 +87,47 @@ const bootstrap = {
 
 
 function todoApp(state = bootstrap, action) {
+  let newId;
   switch(action.type) {
     case 'ADD_TODOLIST':
-
       const { name } = action;
-      console.log('! ! ', name)
       const todoLists = Object.assign({}, state.entities.lists);
       const todoListIds = Object.keys(todoLists);
-      const newId = todoListIds.length  + 1;
+      newId = todoListIds.length  + 1;
       todoLists[newId] = {
         id: newId,
         name,
         todos: [],
         visibilityFilter: 1
       };
-      // const {result} = state;
-      // result.push(newId);
       state.entities.lists = todoLists;
       return {result: [...state.result, newId], entities: {lists: todoLists, todos: state.entities.todos, visibilityFilters: state.entities.visibilityFilters}};
+    case 'ADD_TODO':
+      const {text, listId} = action;
+      const selectedList = state.entities.lists[listId];
+      const todos = Object.assign({}, state.entities.todos);
+      newId = Object.keys(todos).length  + 1;
+      todos[newId] = {
+        id: newId,
+        text,
+        isComplete: false
+      };
+      console.log('>>>> >', listId, state.entities.lists)
+      const todosOfSelectedList = selectedList.todos;
+      const updatedTodoList = [...todosOfSelectedList, newId];
+      const updatedListObj = {
+        id: selectedList.id,
+        name: selectedList.name,
+        todos: updatedTodoList,
+        visibilityFilter: selectedList.visibilityFilter
+      };
+      const updatedListOfLists = Object.assign({}, state.entities.lists);
+      updatedListOfLists[selectedList.id] = updatedListObj;
+      return {result: state.result, entities: {lists: updatedListOfLists, todos: todos, visibilityFilters: state.entities.visibilityFilters} };
     default:
   	 return state;
+
+
   }
 }
 

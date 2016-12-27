@@ -4,3 +4,11 @@ export const addTodoList = (name) => {
     name
   };
 };
+
+export const addTodo = (text, listId) => {
+  return {
+    type: 'ADD_TODO',
+    text,
+    listId
+  };
+};
