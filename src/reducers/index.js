@@ -25,7 +25,7 @@ const bootstrap = {
 			1: {
 				id: 1,
 				text: 'Avocados',
-				isComplete: false
+				isComplete: true
 			},
 			2: {
 				id: 2,
@@ -87,7 +87,7 @@ const bootstrap = {
 
 
 function todoApp(state = bootstrap, action) {
-  let newId;
+  let newId, listId, todos, newState;
   switch(action.type) {
     case 'ADD_TODOLIST':
       const { name } = action;
@@ -103,16 +103,16 @@ function todoApp(state = bootstrap, action) {
       state.entities.lists = todoLists;
       return {result: [...state.result, newId], entities: {lists: todoLists, todos: state.entities.todos, visibilityFilters: state.entities.visibilityFilters}};
     case 'ADD_TODO':
-      const {text, listId} = action;
+      const {text} = action;
+      listId = action.listId;
       const selectedList = state.entities.lists[listId];
-      const todos = Object.assign({}, state.entities.todos);
+      todos = Object.assign({}, state.entities.todos);
       newId = Object.keys(todos).length  + 1;
       todos[newId] = {
         id: newId,
         text,
         isComplete: false
       };
-      console.log('>>>> >', listId, state.entities.lists)
       const todosOfSelectedList = selectedList.todos;
       const updatedTodoList = [...todosOfSelectedList, newId];
       const updatedListObj = {
@@ -124,6 +124,23 @@ function todoApp(state = bootstrap, action) {
       const updatedListOfLists = Object.assign({}, state.entities.lists);
       updatedListOfLists[selectedList.id] = updatedListObj;
       return {result: state.result, entities: {lists: updatedListOfLists, todos: todos, visibilityFilters: state.entities.visibilityFilters} };
+    case 'SET_FILTER':
+      let {filter} = action;
+      listId = action.listId;
+      const filterLookup = Object.keys(state.entities.visibilityFilters).filter(filterId => {  return state.entities.visibilityFilters[filterId].name === filter })[0];
+      const updatedList = Object.assign({}, state.entities.lists[listId]);
+      updatedList.visibilityFilter = filterLookup;
+      newState = Object.assign({}, state);
+      newState.entities.lists[listId] = updatedList;
+      return newState;
+    case 'TOGGLE_TODO':
+      const {todoId} = action;
+      todos = state.entities.todos;
+      const selectedTodo = todos[todoId];
+      const updatedTodo = Object.assign({}, selectedTodo, { isComplete: !selectedTodo.isComplete });
+      newState = Object.assign({}, state);
+      newState.entities.todos[todoId] = updatedTodo;
+      return newState;
     default:
   	 return state;
 

@@ -5,7 +5,7 @@ import { addTodoList } from '../../actions';
 function addTodoListComp ({ dispatch }) {
   let input;
   return (
-    <form onSubmit={ e => { e.preventDefault();
+    <form style={{flexBasis: 100 + '%'}} onSubmit={ e => { e.preventDefault();
                             // input ? console.log(input.value) : '';
                             dispatch(addTodoList(input.value));
                             input.value = '';
@@ -16,11 +16,6 @@ function addTodoListComp ({ dispatch }) {
   );
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addTodoList: (name) => dispatch(addTodoList(name))
-//   }
-// }
 const addTodoListContainer = connect()(addTodoListComp);
 
 export default addTodoListContainer;
