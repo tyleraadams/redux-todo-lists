@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 const mapStateToProps = (state, ownProps) => {
   const list = state.entities.lists[ownProps.id];
   const visibilityFilter = state.entities.visibilityFilters[list.visibilityFilter];
-  // const todos = state.entities.todos;
   const getVisibleTodos = (todos) => {
     switch(visibilityFilter.name) {
       case 'SHOW_COMPLETE':
