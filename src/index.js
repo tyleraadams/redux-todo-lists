@@ -9,7 +9,7 @@ import './index.css';
 
 ReactDOM.render(
 	<Provider store={createStore(todoApp,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
-  <App />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

@@ -9,9 +9,9 @@ function setVisibilityFilter ({ setFilter, listId, visibilityFilter }) {
                             setFilter(input.value);
                           } }>
       <select name="visibility_filter" ref={node => input = node} defaultValue={visibilityFilter}>
-        <option value="SHOW_ALL">Show All</option>
-        <option value="SHOW_COMPLETE">Show Complete</option>
-        <option value="SHOW_INCOMPLETE">Show Incomplete</option>
+        <option value="1">Show All</option>
+        <option value="2">Show Complete</option>
+        <option value="3">Show Incomplete</option>
       </select>
       <button type="submit">Set Filter</button>
     </form>

@@ -1,29 +1,43 @@
+const generateId = () => {
+  return Math.floor(Math.random()*100000000);
+};
+
 export const addTodoList = (name) => {
   return {
     type: 'ADD_TODOLIST',
-    name
+    payload: {
+      name,
+      id: generateId()
+    }
   };
 };
 
 export const addTodo = (text, listId) => {
   return {
     type: 'ADD_TODO',
-    text,
-    listId
+    payload: {
+      text,
+      listId,
+      id: generateId()
+    }
   };
 };
 
 export const setFilter = (filter, listId) => {
   return {
     type: 'SET_FILTER',
-    filter,
-    listId
+    payload: {
+      filter,
+      listId
+    }
   };
 };
 
 export const toggleTodo = (todoId) => {
   return {
     type: 'TOGGLE_TODO',
-    todoId
+    payload: {
+      todoId
+    }
   };
 };
