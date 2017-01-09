@@ -1,6 +1,8 @@
 import { todoLists, todos } from './todos';
 import bootstrap from './bootstrap';
-
+import { normalize } from 'normalizr';
+import { listsSchema } from './schemas';
+import { combineReducers } from 'redux';
 const result = (state, action) => {
   switch(action.type) {
     case 'ADD_TODOLIST':
@@ -30,16 +32,30 @@ const entities = (state, action) => {
       next = Object.assign({}, state);
       next.lists = todoLists(state.lists, action);
       return next;
+    // case 'RECEIVE_LISTS':
+      // next = Object.assign({}, state);
+      // next.lists = action.lists;
+      // console.log(action.lists)
+
+      // return normalizedLists;
     default:
       return state;
   }
 }
 
-const todoApp = (state = bootstrap, action) => {
-  return {
-    entities: entities(state.entities,action),
-    result: result(state.result,action)
-  };
-};
+const lists = (state = {  lists:[]}, action) => {
+  switch(action.type) {
+    case 'RECEIVE_LISTS':
+      const normalizedLists = normalize(action.lists, listsSchema);
+      return normalizedLists.result.map(id => normalizedLists.entities.lists[id]);
+    default:
+      return state;
+  }
+}
+
+const todoApp = combineReducers({
+  lists
+});
+
 
 export default todoApp

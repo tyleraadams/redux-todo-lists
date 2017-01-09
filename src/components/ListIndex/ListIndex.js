@@ -5,10 +5,11 @@ import AddTodoListContainer from '../../containers/AddTodoList/AddTodoList';
 import './ListIndex.css';
 
 const ListIndex = ({ lists }) => {
+  console.log('lists', lists)
   return (
   <div className="ListIndex">
     <AddTodoListContainer />
-    {lists.map(list => <TodoListContainer id={list.id} key={list.id} />)}
+    {lists.length ? lists.map(list => <TodoListContainer id={list.id} key={list.id} />) : ''}
   </div>
   );
 };

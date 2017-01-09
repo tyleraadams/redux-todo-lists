@@ -2,9 +2,11 @@ import ListIndex from '../../components/ListIndex/ListIndex';
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
-  const lists = state.result.map(listId => state.entities.lists[listId]);
+
+  const {lists} =  state;
+  console.log(lists)
   return {
-    lists: lists
+    lists
   };
 };
 const ListIndexContainer = connect(mapStateToProps)(ListIndex);
