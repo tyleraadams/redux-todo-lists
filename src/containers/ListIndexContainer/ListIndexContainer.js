@@ -3,10 +3,11 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
 
-  const {lists} =  state;
-  console.log(lists)
+  const { lists, result } =  state;
+  const builtLists = result.map(id=>lists[id])
+  // console.log('>>> ',lists, result)
   return {
-    lists
+    lists: builtLists
   };
 };
 const ListIndexContainer = connect(mapStateToProps)(ListIndex);

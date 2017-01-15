@@ -1,11 +1,7 @@
 .App {
   text-align: center;
   background: #f9f6e7;
-  position: absolute;
-  top: 0;
-  left:0;
-  right:0;
-  bottom:0;
+  padding-top: 10px;
 }
 
 .clearfix:after {

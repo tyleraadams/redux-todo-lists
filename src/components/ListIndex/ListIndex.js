@@ -9,7 +9,7 @@ const ListIndex = ({ lists }) => {
   return (
   <div className="ListIndex">
     <AddTodoListContainer />
-    {lists.length ? lists.map(list => <TodoListContainer id={list.id} key={list.id} />) : ''}
+    {lists.length ? lists.map(list => <TodoListContainer list={list} key={list.id} />) : ''}
   </div>
   );
 };

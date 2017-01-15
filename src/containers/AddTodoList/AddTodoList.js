@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodoList } from '../../actions';
+import { createList } from '../../actions';
 
 function addTodoListComp ({ dispatch }) {
   let input;
   return (
     <form style={{flexBasis: 100 + '%'}} onSubmit={ e => { e.preventDefault();
-                            // input ? console.log(input.value) : '';
-                            dispatch(addTodoList(input.value));
+                            dispatch(createList(input.value));
                             input.value = '';
                           } }>
       <input ref={node => { input = node }} />
