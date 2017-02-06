@@ -1,5 +1,6 @@
 .ListIndex {
-	display: flex;
-	justify-content: space-around;
-	flex-flow: row wrap;
+	/*display: flex;*/
+	/*justify-content: space-around;*/
+	/*flex-flow: column wrap;*/
+	-webkit-column-count: 4;
 }

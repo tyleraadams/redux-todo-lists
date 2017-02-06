@@ -1,7 +1,5 @@
 {
-  "result": [1, 2, 3],
-  "entities": {
-    "lists": {
+  "lists": {
       "1": {
         "id": 1,
         "name": "Groceries",
@@ -66,20 +64,6 @@
         "id": 9,
         "text": "Dust",
         "isComplete": false
-      }
-    },
-    "visibilityFilters": {
-      "1": {
-        "id": 1,
-        "name": "SHOW_ALL"
-      },
-      "2": {
-        "id": 2,
-        "name": "SHOW_COMPLETE"
-      },
-      "3": {
-        "id": 3,
-        "name": "SHOW_INCOMPLETE"
       }
     }
   }

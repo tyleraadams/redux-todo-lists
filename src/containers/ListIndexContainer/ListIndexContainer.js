@@ -1,15 +1,14 @@
 import ListIndex from '../../components/ListIndex/ListIndex';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { getLists } from '../../reducers'
 
 const mapStateToProps = (state, ownProps) => {
-
-  const { lists, result } =  state;
-  const builtLists = result.map(id=>lists[id])
-  // console.log('>>> ',lists, result)
+  const { lists } =  state;
   return {
-    lists: builtLists
+    lists: getLists(lists)
   };
 };
+
 const ListIndexContainer = connect(mapStateToProps)(ListIndex);
 
 export default ListIndexContainer;

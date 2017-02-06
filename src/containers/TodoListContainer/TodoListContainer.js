@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   // };
 // visibilityFilter: visibilityFilter
   return {
-    todos: list.todos,
+    todos: list.todos || [],
     name: list.name,
     id: list.id
 

@@ -5,6 +5,7 @@ import SetVisibilityFilter from '../../containers/SetVisibilityFilter/SetVisibil
 
 import './TodoList.css';
 const TodoList = ({ todos, name, visibilityFilter, id }) => {
+  console.log('! LOOK AT ME !! DONALD TRUMP ', todos)
   return (
     <div className="TodoList">
       <h2>{name}</h2>

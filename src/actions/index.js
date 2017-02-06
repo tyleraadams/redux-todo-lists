@@ -1,49 +1,46 @@
-import fetch from 'isomorphic-fetch'
 import axios from 'axios'
+import { normalize } from 'normalizr';
+import { listSchema, listsSchema } from './schemas';
 
-const generateId = () => {
-  return Math.floor(Math.random()*100000000);
-};
+// export const addTodoList = (name) => {
+//   return {
+//     type: 'ADD_TODOLIST',
+//     payload: {
+//       name,
+//       id: generateId()
+//     }
+//   };
+// };
 
-export const addTodoList = (name) => {
-  return {
-    type: 'ADD_TODOLIST',
-    payload: {
-      name,
-      id: generateId()
-    }
-  };
-};
+// export const addTodo = (text, listId) => {
+//   return {
+//     type: 'ADD_TODO',
+//     payload: {
+//       text,
+//       listId,
+//       id: generateId()
+//     }
+//   };
+// };
 
-export const addTodo = (text, listId) => {
-  return {
-    type: 'ADD_TODO',
-    payload: {
-      text,
-      listId,
-      id: generateId()
-    }
-  };
-};
+// export const setFilter = (filter, listId) => {
+//   return {
+//     type: 'SET_FILTER',
+//     payload: {
+//       filter,
+//       listId
+//     }
+//   };
+// };
 
-export const setFilter = (filter, listId) => {
-  return {
-    type: 'SET_FILTER',
-    payload: {
-      filter,
-      listId
-    }
-  };
-};
-
-export const toggleTodo = (todoId) => {
-  return {
-    type: 'TOGGLE_TODO',
-    payload: {
-      todoId
-    }
-  };
-};
+// export const toggleTodo = (todoId) => {
+//   return {
+//     type: 'TOGGLE_TODO',
+//     payload: {
+//       todoId
+//     }
+//   };
+// };
 
 function requestLists() {
   return {
@@ -51,10 +48,10 @@ function requestLists() {
   }
 }
 
-function receiveLists(json) {
+function receiveLists(lists) {
   return {
     type: 'RECEIVE_LISTS',
-    lists: json.result
+    result: normalize(lists, listsSchema)
   }
 }
 
@@ -75,7 +72,7 @@ function requestListCreation(name) {
 function receiveList(list) {
   return {
     type: 'RECEIVE_LIST',
-    list
+    result: normalize(list, listSchema)
   }
 }
 
@@ -104,7 +101,7 @@ function receiveTodo(todo, listId) {
 export function fetchLists() {
   return function (dispatch) {
     dispatch(requestLists());
-    return fetch(`http://localhost:3000/lists`).then(response => response.json()).then(json => dispatch(receiveLists(json)))
+    return axios.get(`http://localhost:3000/lists`).then(json => dispatch(receiveLists(json.data.result)))
   }
 }
 
