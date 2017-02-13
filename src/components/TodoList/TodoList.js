@@ -11,7 +11,7 @@ const TodoList = ({ todos, name, visibilityFilter, id }) => {
       <h2>{name}</h2>
       {todos.map((todoId)=><TodoContainer id={todoId} key={todoId} />)}
       <AddTodo id={id}/>
-
+      <SetVisibilityFilter id={id} />
     </div>
   );
 };

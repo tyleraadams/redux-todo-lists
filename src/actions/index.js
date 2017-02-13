@@ -23,15 +23,14 @@ import { listSchema, listsSchema } from './schemas';
 //   };
 // };
 
-// export const setFilter = (filter, listId) => {
+// export const requestVisibilityFilterChange = (visibilityFilter, listId) => {
 //   return {
-//     type: 'SET_FILTER',
-//     payload: {
-//       filter,
-//       listId
-//     }
+//     type: 'REQUEST_VISBILITYFILTER',
+//     visibilityFilter,
+//     listId
 //   };
 // };
+
 
 // export const toggleTodo = (todoId) => {
 //   return {
@@ -58,6 +57,13 @@ function receiveLists(lists) {
 function requestTodoUpdate(id) {
   return {
     type:'REQUEST_TODOUPDATE',
+    id
+  }
+}
+
+function requestVisibilityFilterChange(id) {
+  return {
+    type:'REQUEST_VISBILITYFILTER',
     id
   }
 }
@@ -115,13 +121,20 @@ export function updateTodo(id, isComplete) {
 export function createTodo(text, listId) {
   return function(dispatch) {
     dispatch(requestTodoCreation(text, listId));
-    return axios.post(`http://localhost:3000/lists/${listId}/todos`, { text }).then(json=> dispatch(receiveTodo(json.data.result.todo, json.data.result.list.id)))
+    return axios.post(`http://localhost:3000/lists/${listId}/todos`, { text }).then(json => dispatch(receiveTodo(json.data.result.todo, json.data.result.list.id)))
   }
 }
 
 export function createList(name) {
   return function(dispatch) {
     dispatch(requestListCreation(name));
-    return axios.post(`http://localhost:3000/lists`, { name }).then(json=> dispatch(receiveList(json.data.result)))
+    return axios.post(`http://localhost:3000/lists`, { name }).then(json => dispatch(receiveList(json.data.result)))
+  }
+}
+
+export function updateVisibilityFilter(visibilityFilter, id) {
+  return function(dispatch) {
+    dispatch(requestVisibilityFilterChange(id));
+    return axios.put(`http://localhost:3000/lists/${id}`, { visibilityFilter }).then(json => dispatch(receiveList(json.data.result)))
   }
 }

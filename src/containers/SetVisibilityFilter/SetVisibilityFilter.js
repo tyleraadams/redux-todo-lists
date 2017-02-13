@@ -9,9 +9,9 @@ function setVisibilityFilter ({ setFilter, listId, visibilityFilter }) {
                             setFilter(input.value);
                           } }>
       <select name="visibility_filter" ref={node => input = node} defaultValue={visibilityFilter}>
-        <option value="1">Show All</option>
-        <option value="2">Show Complete</option>
-        <option value="3">Show Incomplete</option>
+        <option value="all">Show All</option>
+        <option value="complete">Show Complete</option>
+        <option value="incomplete">Show Incomplete</option>
       </select>
       <button type="submit">Set Filter</button>
     </form>
@@ -19,20 +19,20 @@ function setVisibilityFilter ({ setFilter, listId, visibilityFilter }) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const {id} = ownProps;
-  const visibilityFilterId = state.entities.lists[id].visibilityFilter;
-  const visibilityFilter = state.entities.visibilityFilters[visibilityFilterId];
-  const visibilityFilterName = visibilityFilter.name;
+  const { id } = ownProps;
+  const { lists } = state;
+  const visbilityFilter = lists[id].visibilityFilter;
+
   return {
     listId: id,
-    visibilityFilter: visibilityFilterName
+    visibilityFilter: visbilityFilter
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { id } = ownProps;
   return {
-    setFilter: (filter) => dispatch(setFilter(filter, id))
+    setFilter: filter => dispatch(setFilter(filter, id))
   }
 };
 
